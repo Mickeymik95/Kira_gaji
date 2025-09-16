@@ -30,10 +30,11 @@ header {
 }
 
 header img {
-    width: 80px;
-    height: auto;
+    width: 130px;
+    height: 130px;
     display: block;
     margin: 0 auto 10px;
+    border-radius: 65px;
 }
 
 header h1 {
@@ -105,7 +106,7 @@ button:hover {
 <body>
 
 <header>
-    <img src="https://i.imgur.com/8Km9tLL.png" alt="Logo">
+    <img src="IMG20250522183433.jpg" alt="Logo">
     <h1>Pengiraan Gaji Automatik</h1>
 </header>
 
@@ -138,7 +139,6 @@ button:hover {
 
 <script>
 function kiraGaji(){
-    // Ambil input user
     const gajiAsas = parseFloat(document.getElementById('c2_1').value) || 0;
     const hariMalam = parseFloat(document.getElementById('c2_2').value) || 0;
     const hariPagi = parseFloat(document.getElementById('c2_3').value) || 0;
@@ -149,23 +149,20 @@ function kiraGaji(){
     const c2_8 = parseFloat(document.getElementById('c2_8').value) || 0;
     const c2_9 = parseFloat(document.getElementById('c2_9').value) || 0;
 
-    // Column3 calculations
     const c3_1 = gajiAsas;
     const c3_2 = hariMalam * 20;
     const c3_3 = hariPagi * 15;
     const c3_4 = elaunDobi;
-
     const base = gajiAsas + c3_2 + c3_3;
 
     const c3_5 = c2_5 * (base / 26 / 8 * 1.5 * 11.5);
-    const c3_6 = c2_6 * (base / 26 / 8 * 1.5*3.5);
-    const c3_7 = c2_7 * (base / 26 / 8 * 1.5*3.5);
+    const c3_6 = c2_6 * (base / 26 / 8 * 1.5);
+    const c3_7 = c2_7 * (base / 26 / 8 * 1.5);
     const c3_8 = c2_8 * (base / 26 * 2);
-    const c3_9 = c2_9 * (base / 26 / 8 * 3*3.5);
+    const c3_9 = c2_9 * (base / 26 / 8 * 3);
 
     const c3_10 = c3_1 + c3_2 + c3_3 + c3_4 + c3_5 + c3_6 + c3_7 + c3_8 + c3_9;
 
-    // Update table
     document.getElementById('c3_1').innerText = c3_1.toFixed(2);
     document.getElementById('c3_2').innerText = c3_2.toFixed(2);
     document.getElementById('c3_3').innerText = c3_3.toFixed(2);
