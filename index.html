@@ -5,14 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pengiraan Gaji</title>
 <style>
-/* Body & Theme */
 body {
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(to bottom right, #0d1b2a, #1b1b2a, #800020);
-    color: #fff;
     min-height: 100vh;
+    background: linear-gradient(to bottom right, #ff0000, #ffffff, #0d1b2a); /* Merah → Putih → Biru gelap */
+    color: #fff;
 }
 
 /* Header */
@@ -72,7 +71,7 @@ button {
     font-size: 16px;
     border-radius: 8px;
     border: none;
-    background: linear-gradient(to right, #0d1b2a, #800020);
+    background: linear-gradient(to right, #ff0000, #0d1b2a); /* Merah → Biru gelap */
     color: #fff;
     cursor: pointer;
     font-weight: bold;
@@ -80,7 +79,7 @@ button {
 }
 
 button:hover {
-    background: linear-gradient(to right, #800020, #0d1b2a);
+    background: linear-gradient(to right, #0d1b2a, #ff0000);
 }
 
 /* Hasil */
@@ -103,21 +102,21 @@ button:hover {
 <thead>
 <tr>
     <th>Jenis Gaji / Elaun</th>
-    <th>Nilai</th>
-    <th>Hasil Kiraan</th>
+    <th>Input (Column 2)</th>
+    <th>Hasil Kiraan (Column 3)</th>
 </tr>
 </thead>
 <tbody>
-<tr><td>1. Gaji Asas</td><td><input type="number" id="gaji_asas" value="0"></td><td id="hasil1">0</td></tr>
-<tr><td>2. Elaun Malam (hari)</td><td>20</td><td id="hasil2">20</td></tr>
-<tr><td>3. Elaun Pagi (hari)</td><td>15</td><td id="hasil3">15</td></tr>
-<tr><td>4. Elaun Dobi</td><td>50</td><td id="hasil4">50</td></tr>
-<tr><td>5. Kerja OD (hari)</td><td>-</td><td id="hasil5">0</td></tr>
-<tr><td>6. OT Normal (pagi)</td><td>-</td><td id="hasil6">0</td></tr>
-<tr><td>7. OT Normal (malam)</td><td>-</td><td id="hasil7">0</td></tr>
-<tr><td>8. Normal PH (hari)</td><td>-</td><td id="hasil8">0</td></tr>
-<tr><td>9. OT PH (hari)</td><td>-</td><td id="hasil9">0</td></tr>
-<tr><td>10. Jumlah Gaji Kasar</td><td>-</td><td id="hasil10">0</td></tr>
+<tr><td>1. Gaji Asas</td><td><input type="number" id="c2_1" value="0"></td><td id="c3_1">0</td></tr>
+<tr><td>2. Elaun Malam (hari)</td><td>20</td><td id="c3_2">20</td></tr>
+<tr><td>3. Elaun Pagi (hari)</td><td>15</td><td id="c3_3">15</td></tr>
+<tr><td>4. Elaun Dobi</td><td>50</td><td id="c3_4">50</td></tr>
+<tr><td>5. Kerja OD (hari)</td><td><input type="number" id="c2_5" value="0"></td><td id="c3_5">0</td></tr>
+<tr><td>6. OT Normal (pagi)</td><td><input type="number" id="c2_6" value="0"></td><td id="c3_6">0</td></tr>
+<tr><td>7. OT Normal (malam)</td><td><input type="number" id="c2_7" value="0"></td><td id="c3_7">0</td></tr>
+<tr><td>8. Normal PH (hari)</td><td><input type="number" id="c2_8" value="0"></td><td id="c3_8">0</td></tr>
+<tr><td>9. OT PH (hari)</td><td><input type="number" id="c2_9" value="0"></td><td id="c3_9">0</td></tr>
+<tr><td>10. Jumlah Gaji Kasar</td><td>-</td><td id="c3_10">0</td></tr>
 </tbody>
 </table>
 
@@ -127,37 +126,47 @@ button:hover {
 
 <script>
 function kiraGaji(){
-    // Ambil input user
-    const gajiAsas = parseFloat(document.getElementById('gaji_asas').value) || 0;
+    const gajiAsas = parseFloat(document.getElementById('c2_1').value) || 0;
+    const c2_5 = parseFloat(document.getElementById('c2_5').value) || 0;
+    const c2_6 = parseFloat(document.getElementById('c2_6').value) || 0;
+    const c2_7 = parseFloat(document.getElementById('c2_7').value) || 0;
+    const c2_8 = parseFloat(document.getElementById('c2_8').value) || 0;
+    const c2_9 = parseFloat(document.getElementById('c2_9').value) || 0;
+
+    // Fixed values
     const elaunMalam = 20;
     const elaunPagi = 15;
     const elaunDobi = 50;
 
-    // Base untuk pengiraan OT / PH / Kerja OD
+    // Base
     const base = gajiAsas + elaunMalam + elaunPagi;
 
-    // Pengiraan
-    const kerjaOD = base / 26 / 8 * 1.5 * 11.5;
-    const otNormalPagi = base / 26 / 8 * 1.5;
-    const otNormalMalam = base / 26 / 8 * 1.5;
-    const normalPH = base / 26 * 2;
-    const otPH = base / 26 / 8 * 3;
+    // Column 3 calculations
+    const c3_1 = gajiAsas;
+    const c3_2 = elaunMalam;
+    const c3_3 = elaunPagi;
+    const c3_4 = elaunDobi;
 
-    // Jumlah Gaji Kasar
-    const jumlah = gajiAsas + elaunMalam + elaunPagi + elaunDobi + kerjaOD + otNormalPagi + otNormalMalam + normalPH + otPH;
+    const c3_5 = c2_5 * (base / 26 / 8 * 1.5 * 11.5);
+    const c3_6 = c2_6 * (base / 26 / 8 * 1.5);
+    const c3_7 = c2_7 * (base / 26 / 8 * 1.5);
+    const c3_8 = c2_8 * (base / 26 * 2);
+    const c3_9 = c2_9 * (base / 26 / 8 * 3);
 
-    // Papar hasil
-    document.getElementById('hasil1').innerText = gajiAsas.toFixed(2);
-    document.getElementById('hasil2').innerText = elaunMalam.toFixed(2);
-    document.getElementById('hasil3').innerText = elaunPagi.toFixed(2);
-    document.getElementById('hasil4').innerText = elaunDobi.toFixed(2);
-    document.getElementById('hasil5').innerText = kerjaOD.toFixed(2);
-    document.getElementById('hasil6').innerText = otNormalPagi.toFixed(2);
-    document.getElementById('hasil7').innerText = otNormalMalam.toFixed(2);
-    document.getElementById('hasil8').innerText = normalPH.toFixed(2);
-    document.getElementById('hasil9').innerText = otPH.toFixed(2);
-    document.getElementById('hasil10').innerText = jumlah.toFixed(2);
-    document.getElementById('jumlah').innerText = `Jumlah Gaji Kasar: RM ${jumlah.toFixed(2)}`;
+    const c3_10 = c3_1 + c3_2 + c3_3 + c3_4 + c3_5 + c3_6 + c3_7 + c3_8 + c3_9;
+
+    // Update table
+    document.getElementById('c3_1').innerText = c3_1.toFixed(2);
+    document.getElementById('c3_2').innerText = c3_2.toFixed(2);
+    document.getElementById('c3_3').innerText = c3_3.toFixed(2);
+    document.getElementById('c3_4').innerText = c3_4.toFixed(2);
+    document.getElementById('c3_5').innerText = c3_5.toFixed(2);
+    document.getElementById('c3_6').innerText = c3_6.toFixed(2);
+    document.getElementById('c3_7').innerText = c3_7.toFixed(2);
+    document.getElementById('c3_8').innerText = c3_8.toFixed(2);
+    document.getElementById('c3_9').innerText = c3_9.toFixed(2);
+    document.getElementById('c3_10').innerText = c3_10.toFixed(2);
+    document.getElementById('jumlah').innerText = `Jumlah Gaji Kasar: RM ${c3_10.toFixed(2)}`;
 }
 </script>
 
