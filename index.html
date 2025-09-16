@@ -42,6 +42,14 @@ header h1 {
     font-weight: bold;
 }
 
+header h2 {
+    font-size: 18px;
+    font-weight: normal;
+    color: #FFD700; /* kuning emas */
+    margin-top: 5px;
+    font-style: italic;
+}
+
 /* Container */
 .container {
     max-width: 800px;
@@ -108,6 +116,7 @@ button:hover {
 <header>
     <img src="IMG20250522183433.jpg" alt="Logo">
     <h1>Pengiraan Gaji Automatik</h1>
+    <h2>Created by Ppb Nazmi/Mik😈</h2>
 </header>
 
 <div class="container">
@@ -125,11 +134,10 @@ button:hover {
 <tr><td>3. Elaun Pagi (hari)</td><td><input type="number" id="c2_3" value=""></td><td id="c3_3">0</td></tr>
 <tr><td>4. Elaun Dobi</td><td><input type="number" id="c2_4" value=""></td><td id="c3_4">0</td></tr>
 <tr><td>5. Kerja OD (hari)</td><td><input type="number" id="c2_5" value=""></td><td id="c3_5">0</td></tr>
-<tr><td>6. OT Normal (pagi)</td><td><input type="number" id="c2_6" value=""></td><td id="c3_6">0</td></tr>
-<tr><td>7. OT Normal (malam)</td><td><input type="number" id="c2_7" value=""></td><td id="c3_7">0</td></tr>
-<tr><td>8. Normal PH (hari)</td><td><input type="number" id="c2_8" value=""></td><td id="c3_8">0</td></tr>
-<tr><td>9. OT PH (hari)</td><td><input type="number" id="c2_9" value=""></td><td id="c3_9">0</td></tr>
-<tr><td>10. Jumlah Gaji Kasar</td><td>-</td><td id="c3_10">0</td></tr>
+<tr><td>6. OT Normal</td><td><input type="number" id="c2_6" value=""></td><td id="c3_6">0</td></tr>
+<tr><td>7. Normal PH (hari)</td><td><input type="number" id="c2_7" value=""></td><td id="c3_7">0</td></tr>
+<tr><td>8. OT PH (hari)</td><td><input type="number" id="c2_8" value=""></td><td id="c3_8">0</td></tr>
+<tr><td>9. Jumlah Gaji Kasar</td><td>-</td><td id="c3_9">0</td></tr>
 </tbody>
 </table>
 
@@ -147,7 +155,6 @@ function kiraGaji(){
     const c2_6 = parseFloat(document.getElementById('c2_6').value) || 0;
     const c2_7 = parseFloat(document.getElementById('c2_7').value) || 0;
     const c2_8 = parseFloat(document.getElementById('c2_8').value) || 0;
-    const c2_9 = parseFloat(document.getElementById('c2_9').value) || 0;
 
     const c3_1 = gajiAsas;
     const c3_2 = hariMalam * 20;
@@ -156,12 +163,11 @@ function kiraGaji(){
     const base = gajiAsas + c3_2 + c3_3;
 
     const c3_5 = c2_5 * (base / 26 / 8 * 1.5 * 11.5);
-    const c3_6 = c2_6 * (base / 26 / 8 * 1.5);
-    const c3_7 = c2_7 * (base / 26 / 8 * 1.5);
-    const c3_8 = c2_8 * (base / 26 * 2);
-    const c3_9 = c2_9 * (base / 26 / 8 * 3);
+    const c3_6 = c2_6 * (base / 26 / 8 * 1.5 * 3.5); // OT Normal baru
+    const c3_7 = c2_7 * (base / 26 * 2);
+    const c3_8 = c2_8 * (base / 26 / 8 * 3);
 
-    const c3_10 = c3_1 + c3_2 + c3_3 + c3_4 + c3_5 + c3_6 + c3_7 + c3_8 + c3_9;
+    const c3_9 = c3_1 + c3_2 + c3_3 + c3_4 + c3_5 + c3_6 + c3_7 + c3_8;
 
     document.getElementById('c3_1').innerText = c3_1.toFixed(2);
     document.getElementById('c3_2').innerText = c3_2.toFixed(2);
@@ -172,8 +178,7 @@ function kiraGaji(){
     document.getElementById('c3_7').innerText = c3_7.toFixed(2);
     document.getElementById('c3_8').innerText = c3_8.toFixed(2);
     document.getElementById('c3_9').innerText = c3_9.toFixed(2);
-    document.getElementById('c3_10').innerText = c3_10.toFixed(2);
-    document.getElementById('jumlah').innerText = `Jumlah Gaji Kasar: RM ${c3_10.toFixed(2)}`;
+    document.getElementById('jumlah').innerText = `Jumlah Gaji Kasar: RM ${c3_9.toFixed(2)}`;
 }
 </script>
 
