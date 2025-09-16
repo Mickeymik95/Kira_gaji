@@ -3,208 +3,252 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pengiraan Gaji - WhatsApp</title>
+<title>Pengiraan Gaji - Tema Prasarana</title>
 <style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        text-align: center;
-        background: #f9fbff;
-    }
+:root {
+    --merah: #E60012;
+    --biru: #003B5C;
+    --biru2: #001F3F;
+    --putih: #FFFFFF;
+    --emas: #FFD700;
+    --abu: #F1F1F1;
+}
 
-    h1 {
-        color: #003B5C;
-    }
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background: linear-gradient(to right, var(--merah), var(--putih), var(--biru));
+    color: #000;
+}
 
-    /* Paparan gaji */
-    #c3_9 {
-        font-size: 22px;
-        margin-top: 15px;
-        font-weight: bold;
-        color: #E60012;
-    }
+/* Header */
+header {
+    text-align: center;
+    padding: 30px 10px;
+    background: linear-gradient(135deg, var(--merah), var(--biru2));
+    color: var(--putih);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    border-radius: 0 0 20px 20px;
+}
 
-    /* Butang WhatsApp */
-    .whatsapp-btn {
-        margin-top: 25px;
-        padding: 14px 28px;
-        font-size: 16px;
-        border-radius: 50px;
-        border: none;
-        background-color: #25D366;
-        color: white;
-        cursor: pointer;
-        font-weight: bold;
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        transition: 0.3s;
-    }
+header img {
+    width: 130px;
+    height: 130px;
+    display: block;
+    margin: 0 auto 10px;
+    border-radius: 65px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+}
 
-    .whatsapp-btn:hover {
-        background-color: #1DA851;
-        transform: scale(1.07);
-    }
+header h1 {
+    font-size: 32px;
+    font-weight: bold;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+}
 
-    .whatsapp-btn svg {
-        width: 22px;
-        height: 22px;
-        fill: white;
-    }
+header h2 {
+    font-size: 18px;
+    font-weight: normal;
+    color: var(--emas);
+    margin-top: 5px;
+    font-style: italic;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+}
 
-    /* Modal */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 999;
-        left: 0; top: 0;
-        width: 100%; height: 100%;
-        background: rgba(0,0,0,0.6);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+/* Container */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: var(--putih);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
 
-    .modal-content {
-        background: white;
-        padding: 20px;
-        border-radius: 14px;
-        width: 320px;
-        text-align: center;
-        position: relative;
-        animation: fadeIn 0.3s ease-in-out;
-    }
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    table-layout: fixed; /* ikut colgroup */
+}
 
-    @keyframes fadeIn {
-        from {opacity: 0; transform: scale(0.8);}
-        to {opacity: 1; transform: scale(1);}
-    }
+th, td {
+    border: 1px solid var(--emas);
+    padding: 8px;
+    text-align: center;
+    word-wrap: break-word;
+}
 
-    .close-btn {
-        position: absolute;
-        top: 10px; right: 15px;
-        font-size: 20px;
-        cursor: pointer;
-        color: #555;
-    }
+th {
+    background-color: var(--biru2);
+    color: var(--putih);
+}
 
-    .close-btn:hover { color: red; }
+input {
+    width: 90%;             /* muat dalam sel */
+    max-width: 120px;       /* hadkan panjang */
+    text-align: right;
+    border-radius: 5px;
+    border: 1px solid #555;
+    padding: 5px;
+    box-sizing: border-box; /* padding + border dikira sekali */
+}
 
-    .input-group {
-        display: flex;
-        align-items: center;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        overflow: hidden;
-        margin: 15px 0;
-    }
+/* Butang WhatsApp */
+.whatsapp-btn {
+    margin-top: 15px;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 50px;
+    border: none;
+    background-color: #25D366; /* hijau WhatsApp */
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
 
-    .input-group span {
-        background: #f1f1f1;
-        padding: 10px;
-        font-weight: bold;
-        color: #333;
-        border-right: 1px solid #ccc;
-    }
+.whatsapp-btn:hover {
+    background-color: #1DA851;
+    transform: scale(1.05);
+}
 
-    input {
-        flex: 1;
-        padding: 10px;
-        border: none;
-        outline: none;
-        font-size: 14px;
-    }
+.whatsapp-btn svg {
+    width: 20px;
+    height: 20px;
+    fill: white;
+}
 
-    .send-btn {
-        background: #25D366;
-        color: white;
-        border: none;
-        padding: 12px;
-        border-radius: 8px;
-        cursor: pointer;
-        width: 100%;
-        font-weight: bold;
-        font-size: 15px;
-        transition: 0.3s;
-    }
-
-    .send-btn:hover { background: #1DA851; }
-
-    .error {
-        color: red;
-        font-size: 13px;
-        display: none;
-        margin-bottom: 5px;
-    }
+/* Hasil */
+#jumlah {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
+    text-align: center;
+}
+.highlight {
+    background-color: #FFF5B7; /* Kuning lembut */
+    font-weight: bold;
+}
 </style>
 </head>
 <body>
 
-<h1>Kiraan Gaji</h1>
-<p>Jumlah Gaji Kasar Anda:</p>
-<div id="c3_9">2500</div>
+<header>
+    <img src="IMG20250522183433.jpg" alt="Logo">
+    <h1>Pengiraan Gaji Automatik</h1>
+    <h2>Created by Ppb Nazmi/Mik😈</h2>
+</header>
 
-<!-- Button WhatsApp -->
+<div class="container">
+<table id="gajiTable">
+<colgroup>
+  <col style="width: 40%">  <!-- Kolum Perkara -->
+  <col style="width: 30%">  <!-- Kolum Input -->
+  <col style="width: 30%">  <!-- Kolum Hasil -->
+</colgroup>
+<thead>
+<tr>
+    <th>Perkara</th>
+    <th>Input</th>
+    <th>Hasil Kiraan</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>1. Gaji Asas</td><td><input type="number" id="c2_1"></td><td id="c3_1">0</td></tr>
+<tr><td>2. Elaun syif Malam (hari)</td><td><input type="number" id="c2_2"></td><td id="c3_2">0</td></tr>
+<tr><td>3. Elaun syif Pagi (hari)</td><td><input type="number" id="c2_3"></td><td id="c3_3">0</td></tr>
+<tr><td>4. Elaun Dobi</td><td><input type="number" id="c2_4"></td><td id="c3_4">0</td></tr>
+<tr><td>5. Kerja OD (hari)</td><td><input type="number" id="c2_5"></td><td id="c3_5">0</td></tr>
+<tr><td>6. Normal OT (Hari)</td><td><input type="number" id="c2_6"></td><td id="c3_6">0</td></tr>
+<tr><td>7. Normal PH (hari)</td><td><input type="number" id="c2_7"></td><td id="c3_7">0</td></tr>
+<tr><td>8. OT PH (hari)</td><td><input type="number" id="c2_8"></td><td id="c3_8">0</td></tr>
+<tr><td>9. Jumlah Gaji Kasar</td><td>-</td><td id="c3_9">0</td></tr>
+</tbody>
+</table>
+
+<!-- Butang WhatsApp -->
 <button id="waBtn" class="whatsapp-btn">
+    <!-- Ikon WhatsApp -->
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
         <path d="M16 0C7.164 0 0 6.832 0 15.25c0 2.688.74 5.285 2.145 7.582L0 32l9.426-2.945A15.9 15.9 0 0 0 16 30.5c8.836 0 16-6.832 16-15.25S24.836 0 16 0zm0 28.125c-2.34 0-4.617-.68-6.582-1.973l-.473-.309-5.59 1.75 1.824-5.34-.309-.496C3.895 20.098 3.25 17.73 3.25 15.25 3.25 8.652 9.016 3.375 16 3.375s12.75 5.277 12.75 11.875S22.984 28.125 16 28.125zM23.211 19.27c-.385-.195-2.27-1.113-2.621-1.242-.352-.129-.609-.195-.867.195s-.996 1.242-1.223 1.5c-.223.258-.445.289-.83.098-.387-.195-1.629-.59-3.105-1.875-1.145-1.02-1.914-2.277-2.14-2.664-.223-.387-.023-.598.172-.793.18-.176.387-.457.582-.684.195-.227.258-.387.387-.645.129-.258.066-.484-.031-.68-.098-.195-.867-2.086-1.188-2.855-.312-.75-.633-.648-.867-.66-.223-.012-.48-.012-.738-.012-.258 0-.68.097-1.035.484-.352.387-1.367 1.332-1.367 3.25s1.398 3.77 1.594 4.027c.195.258 2.75 4.395 6.664 6.074.934.402 1.66.641 2.227.82.934.297 1.785.254 2.457.156.75-.113 2.27-.926 2.594-1.82.32-.895.32-1.66.223-1.82-.094-.164-.352-.262-.738-.457z"/>
     </svg>
     Hantar WhatsApp
 </button>
 
-<!-- Modal -->
-<div id="waModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <h3>Masukkan Nombor WhatsApp</h3>
-        <p>(Isi nombor tanpa 0 depan, contoh: 123456789)</p>
-        <div class="error" id="errorMsg">⚠️ Sila isi nombor yang sah</div>
-        <div class="input-group">
-            <span>+60</span>
-            <input type="text" id="waNumber" placeholder="123456789" maxlength="12">
-        </div>
-        <button class="send-btn" id="sendWa">Hantar</button>
-    </div>
+<p id="jumlah">Jumlah Gaji Kasar: RM 0</p>
 </div>
 
 <script>
-    const modal = document.getElementById("waModal");
-    const waBtn = document.getElementById("waBtn");
-    const closeBtn = document.querySelector(".close-btn");
-    const sendWa = document.getElementById("sendWa");
-    const errorMsg = document.getElementById("errorMsg");
-    const waNumberInput = document.getElementById("waNumber");
+// Auto kira bila input berubah
+const inputs = document.querySelectorAll('table input');
+inputs.forEach(input => input.addEventListener('input', kiraGaji));
 
-    // Buka modal
-    waBtn.onclick = () => {
-        modal.style.display = "flex";
-        waNumberInput.focus();
-    };
+function kiraGaji(){
+    const gajiAsas = parseFloat(document.getElementById('c2_1').value) || 0;
+    const hariMalam = parseFloat(document.getElementById('c2_2').value) || 0;
+    const hariPagi = parseFloat(document.getElementById('c2_3').value) || 0;
+    const elaunDobi = parseFloat(document.getElementById('c2_4').value) || 0;
+    const c2_5 = parseFloat(document.getElementById('c2_5').value) || 0;
+    const c2_6 = parseFloat(document.getElementById('c2_6').value) || 0;
+    const c2_7 = parseFloat(document.getElementById('c2_7').value) || 0;
+    const c2_8 = parseFloat(document.getElementById('c2_8').value) || 0;
 
-    // Tutup modal
-    closeBtn.onclick = () => modal.style.display = "none";
-    window.onclick = (e) => { if(e.target == modal) modal.style.display = "none"; };
+    const c3_1 = gajiAsas;
+    const c3_2 = hariMalam * 20;
+    const c3_3 = hariPagi * 15;
+    const c3_4 = elaunDobi;
+    const base = gajiAsas + c3_2 + c3_3;
 
-    // Hantar WhatsApp
-    sendWa.onclick = () => {
-        const gaji = document.getElementById("c3_9").innerText;
-        const mesej = `Gaji Kasar anda pada bulan ini adalah RM ${gaji}`;
-        let noPhone = waNumberInput.value.trim();
+    const c3_5 = c2_5 * (base / 26 / 8 * 1.5 * 11.5);
+    const c3_6 = c2_6 * (base / 26 / 8 * 1.5 * 3.5);
+    const c3_7 = c2_7 * (base / 26 * 2);
+    const c3_8 = c2_8 * (base / 26 / 8 * 3*3.5);
 
-        // Validation
-        if(!/^[0-9]{7,12}$/.test(noPhone)) {
-            errorMsg.style.display = "block";
-            return;
+    const c3_9 = c3_1 + c3_2 + c3_3 + c3_4 + c3_5 + c3_6 + c3_7 + c3_8;
+
+    document.getElementById('c3_1').innerText = c3_1.toFixed(2);
+    document.getElementById('c3_2').innerText = c3_2.toFixed(2);
+    document.getElementById('c3_3').innerText = c3_3.toFixed(2);
+    document.getElementById('c3_4').innerText = c3_4.toFixed(2);
+    document.getElementById('c3_5').innerText = c3_5.toFixed(2);
+    document.getElementById('c3_6').innerText = c3_6.toFixed(2);
+    document.getElementById('c3_7').innerText = c3_7.toFixed(2);
+    document.getElementById('c3_8').innerText = c3_8.toFixed(2);
+    document.getElementById('c3_9').innerText = c3_9.toFixed(2);
+    document.getElementById('jumlah').innerText = `Jumlah Gaji Kasar: RM ${c3_9.toFixed(2)}`;
+}
+
+// Highlight row jumlah gaji
+const row9 = document.querySelector('#gajiTable tbody tr:last-child');
+row9.classList.add('highlight');
+
+// Butang WhatsApp
+document.getElementById('waBtn').addEventListener('click', () => {
+    const gaji = document.getElementById('c3_9').innerText;
+    const mesej = `Gaji Kasar anda pada bulan ini adalah RM ${gaji}`;
+    
+    let noPhone = prompt("Masukkan nombor WhatsApp (contoh: 60123456789):");
+    
+    if(noPhone) {
+        // validation: mesti mula dengan 6 dan nombor sahaja
+        if(/^6\d{8,13}$/.test(noPhone)) {
+            const url = `https://wa.me/${noPhone}?text=${encodeURIComponent(mesej)}`;
+            window.open(url, "_blank");
         } else {
-            errorMsg.style.display = "none";
+            alert("Nombor tidak sah! Sila masukkan format betul, contoh: 60123456789");
         }
-
-        const url = `https://wa.me/60${noPhone}?text=${encodeURIComponent(mesej)}`;
-        window.open(url, "_blank");
-        modal.style.display = "none";
-        waNumberInput.value = "";
-    };
+    }
+});
 </script>
 
 </body>
