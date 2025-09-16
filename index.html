@@ -199,6 +199,31 @@ document.getElementById('pdfBtn').addEventListener('click', () => {
     // Tukar input ke text sementara
     const inputs = table.querySelectorAll('input');
     inputs.forEach(input => {
+        const span = document.createElement('span');
+        span.innerText = input.value;
+        span.classList.add('temp-span');
+        input.style.display = 'none';
+        input.parentElement.appendChild(span);
+    });
+
+    const options = {
+        margin: 0.5,
+        filename: 'Gaji_Kasar_Table.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, scrollY: -window.scrollY },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+
+    html2pdf().set(options).from(table).save().then(() => {
+        // Restore input
+        table.querySelectorAll('.temp-span').forEach(span => span.remove());
+        inputs.forEach(input => input.style.display = 'inline-block');
+    });
+});
+
+    // Tukar input ke text sementara
+    const inputs = table.querySelectorAll('input');
+    inputs.forEach(input => {
         input.setAttribute('data-value', input.value);
         input.style.display = 'none';
         const span = document.createElement('span');
