@@ -145,7 +145,6 @@ button:hover {
 </tbody>
 </table>
 
-<button id="waBtn">Hantar via WhatsApp</button>
 <button id="pdfBtn">Download PDF</button>
 <p id="jumlah">Jumlah Gaji Kasar: RM 0</p>
 </div>
@@ -193,27 +192,33 @@ function kiraGaji(){
     document.getElementById('jumlah').innerText = `Jumlah Gaji Kasar: RM ${c3_9.toFixed(2)}`;
 }
 
-// WhatsApp Button
-document.getElementById('waBtn').addEventListener('click', () => {
-    const nombor = prompt("Masukkan nombor WhatsApp target (contoh: 60123456789):");
-    if(nombor){
-        const jumlah = document.getElementById('c3_9').innerText;
-        const message = encodeURIComponent(`Jumlah Gaji Kasar: RM ${jumlah}`);
-        window.open(`https://wa.me/${nombor}?text=${message}`, '_blank');
-    }
-});
-
-// Download PDF Button
+// Download PDF hanya table
 document.getElementById('pdfBtn').addEventListener('click', () => {
-    const element = document.querySelector('.container');
+    const table = document.querySelector('.container table');
+
+    // Tukar input ke text sementara
+    const inputs = table.querySelectorAll('input');
+    inputs.forEach(input => {
+        input.setAttribute('data-value', input.value);
+        input.style.display = 'none';
+        const span = document.createElement('span');
+        span.innerText = input.value;
+        span.classList.add('temp-span');
+        input.parentElement.appendChild(span);
+    });
+// Generate PDF dari table sahaja
     const options = {
         margin: 0.5,
-        filename: 'Gaji_Kasar.pdf',
+        filename: 'Gaji_Kasar_Table.pdf',
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2 },
         jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
     };
-    html2pdf().set(options).from(element).save();
+    html2pdf().set(options).from(table).save().then(() => {
+        // Restore input asal selepas PDF siap
+        table.querySelectorAll('.temp-span').forEach(span => span.remove());
+        inputs.forEach(input => input.style.display = 'inline-block');
+    });
 });
 </script>
 
