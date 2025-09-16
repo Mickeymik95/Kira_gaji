@@ -2,48 +2,149 @@
 <html lang="ms">
 <head>
 <meta charset="UTF-8">
-<title>Terai Pengiraan Gaji</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pengiraan Gaji</title>
+<style>
+/* Body & Theme */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom right, #4facfe, #00f2fe, #f093fb, #f5576c);
+    min-height: 100vh;
+    color: #fff;
+}
+
+/* Header */
+header {
+    text-align: center;
+    padding: 30px 10px;
+}
+
+header img {
+    width: 80px;
+    height: 80px;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+header h1 {
+    font-size: 32px;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Table */
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 10px;
+}
+
+th, td {
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 8px;
+    text-align: center;
+}
+
+input {
+    width: 80px;
+    text-align: right;
+    border-radius: 5px;
+    border: none;
+    padding: 5px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(to right, #00f2fe, #4facfe);
+    color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+}
+
+button:hover {
+    background: linear-gradient(to right, #f5576c, #f093fb);
+}
+
+/* Hasil */
+#jumlah {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 15px;
+}
+</style>
 </head>
 <body>
-<h2>Terai Pengiraan Gaji</h2>
 
-<label>Gaji Asas:</label>
-<input type="number" id="gajiAsas" value="2000"><br>
+<header>
+    <img src="https://i.imgur.com/8Km9tLL.png" alt="Logo">
+    <h1>Pengiraan Gaji Automatik</h1>
+</header>
 
-<label>Elaun Malam (hari):</label>
-<input type="number" id="elaunMalam" value="2"><br>
+<div class="container">
+<table>
+<thead>
+<tr>
+    <th>Jenis Gaji / Elaun</th>
+    <th>Input (Column 2)</th>
+    <th>Hasil Kiraan (Column 3)</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>1. Gaji Asas</td><td><input type="number" id="c2_1" value="0"></td><td id="c3_1">0</td></tr>
+<tr><td>2. Elaun Malam (hari)</td><td><input type="number" id="c2_2" value="0"></td><td id="c3_2">0</td></tr>
+<tr><td>3. Elaun Pagi (hari)</td><td><input type="number" id="c2_3" value="0"></td><td id="c3_3">0</td></tr>
+<tr><td>4. Elaun Dobi</td><td><input type="number" id="c2_4" value="0"></td><td id="c3_4">0</td></tr>
+<tr><td>5. Kerja OD (hari)</td><td><input type="number" id="c2_5" value="0"></td><td id="c3_5">0</td></tr>
+<tr><td>6. OT Normal (pagi)</td><td><input type="number" id="c2_6" value="0"></td><td id="c3_6">0</td></tr>
+<tr><td>7. OT Normal (malam)</td><td><input type="number" id="c2_7" value="0"></td><td id="c3_7">0</td></tr>
+<tr><td>8. Normal PH (hari)</td><td><input type="number" id="c2_8" value="0"></td><td id="c3_8">0</td></tr>
+<tr><td>9. OT PH (hari)</td><td><input type="number" id="c2_9" value="0"></td><td id="c3_9">0</td></tr>
+<tr><td>10. Jumlah Gaji Kasar</td><td>-</td><td id="c3_10">0</td></tr>
+</tbody>
+</table>
 
-<label>Elaun Pagi (hari):</label>
-<input type="number" id="elaunPagi" value="3"><br>
+<button onclick="kiraGaji()">Kira Gaji</button>
 
-<label>Elaun Dobi:</label>
-<input type="number" id="elaunDobi" value="50"><br>
-
-<button onclick="kira()">Kira</button>
-
-<h3>Hasil Pengiraan:</h3>
-<ul id="hasil"></ul>
+<p id="jumlah">Jumlah Gaji Kasar: RM 0</p>
+</div>
 
 <script>
-function kira() {
-    const c2_1 = parseFloat(document.getElementById('gajiAsas').value);
-    const c2_2 = parseFloat(document.getElementById('elaunMalam').value);
-    const c2_3 = parseFloat(document.getElementById('elaunPagi').value);
-    const c2_4 = parseFloat(document.getElementById('elaunDobi').value);
+function kiraGaji(){
+    // Ambil input user
+    const c2_1 = parseFloat(document.getElementById('c2_1').value) || 0;
+    const c2_2 = parseFloat(document.getElementById('c2_2').value) || 0;
+    const c2_3 = parseFloat(document.getElementById('c2_3').value) || 0;
+    const c2_4 = parseFloat(document.getElementById('c2_4').value) || 0;
+    const c2_5 = parseFloat(document.getElementById('c2_5').value) || 0;
+    const c2_6 = parseFloat(document.getElementById('c2_6').value) || 0;
+    const c2_7 = parseFloat(document.getElementById('c2_7').value) || 0;
+    const c2_8 = parseFloat(document.getElementById('c2_8').value) || 0;
+    const c2_9 = parseFloat(document.getElementById('c2_9').value) || 0;
 
-    // Column 3 pengiraan
+    // Column 3 calculations
     const c3_1 = c2_1;
     const c3_2 = c2_2 * 20;
     const c3_3 = c2_3 * 15;
     const c3_4 = c2_4;
 
     const base = c3_1 + c3_3 + c3_4;
-
-    const c2_5 = 1; // contoh Kerja OD (hari)
-    const c2_6 = 2; // OT Normal Pagi
-    const c2_7 = 1; // OT Normal Malam
-    const c2_8 = 1; // Normal PH
-    const c2_9 = 1; // OT PH
 
     const c3_5 = c2_5 * (base / 26 / 8 * 1.5);
     const c3_6 = c2_6 * (base / 26 / 8 * 1.5);
@@ -53,27 +154,20 @@ function kira() {
 
     const c3_10 = c3_1 + c3_2 + c3_3 + c3_4 + c3_5 + c3_6 + c3_7 + c3_8 + c3_9;
 
-    const hasil = [
-        `Gaji Asas = ${c3_1.toFixed(2)}`,
-        `Elaun Malam = ${c3_2.toFixed(2)}`,
-        `Elaun Pagi = ${c3_3.toFixed(2)}`,
-        `Elaun Dobi = ${c3_4.toFixed(2)}`,
-        `Kerja OD = ${c3_5.toFixed(2)}`,
-        `OT Normal Pagi = ${c3_6.toFixed(2)}`,
-        `OT Normal Malam = ${c3_7.toFixed(2)}`,
-        `Normal PH = ${c3_8.toFixed(2)}`,
-        `OT PH = ${c3_9.toFixed(2)}`,
-        `Jumlah Gaji Kasar = ${c3_10.toFixed(2)}`
-    ];
-
-    const ul = document.getElementById('hasil');
-    ul.innerHTML = '';
-    hasil.forEach(h => {
-        const li = document.createElement('li');
-        li.textContent = h;
-        ul.appendChild(li);
-    });
+    // Papar hasil
+    document.getElementById('c3_1').innerText = c3_1.toFixed(2);
+    document.getElementById('c3_2').innerText = c3_2.toFixed(2);
+    document.getElementById('c3_3').innerText = c3_3.toFixed(2);
+    document.getElementById('c3_4').innerText = c3_4.toFixed(2);
+    document.getElementById('c3_5').innerText = c3_5.toFixed(2);
+    document.getElementById('c3_6').innerText = c3_6.toFixed(2);
+    document.getElementById('c3_7').innerText = c3_7.toFixed(2);
+    document.getElementById('c3_8').innerText = c3_8.toFixed(2);
+    document.getElementById('c3_9').innerText = c3_9.toFixed(2);
+    document.getElementById('c3_10').innerText = c3_10.toFixed(2);
+    document.getElementById('jumlah').innerText = `Jumlah Gaji Kasar: RM ${c3_10.toFixed(2)}`;
 }
 </script>
+
 </body>
 </html>
