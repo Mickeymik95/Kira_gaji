@@ -73,7 +73,7 @@ table {
     border-collapse: collapse;
     margin-top: 20px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-    table-layout: fixed;
+    table-layout: fixed; /* ikut colgroup */
 }
 
 th, td {
@@ -89,11 +89,13 @@ th {
 }
 
 input {
-    width: 100px;
+    width: 90%;             /* muat dalam sel */
+    max-width: 120px;       /* hadkan panjang */
     text-align: right;
     border-radius: 5px;
     border: 1px solid #555;
     padding: 5px;
+    box-sizing: border-box; /* padding + border dikira sekali */
 }
 
 /* Button */
@@ -136,6 +138,11 @@ button:hover {
 
 <div class="container">
 <table id="gajiTable">
+<colgroup>
+  <col style="width: 40%">  <!-- Kolum Perkara -->
+  <col style="width: 30%">  <!-- Kolum Input -->
+  <col style="width: 30%">  <!-- Kolum Hasil -->
+</colgroup>
 <thead>
 <tr>
     <th>Perkara</th>
