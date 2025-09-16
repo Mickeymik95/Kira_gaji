@@ -3,26 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pengiraan Gaji</title>
+<title>Pengiraan Gaji - Tema Prasarana</title>
 <style>
+:root {
+    --merah: #E60012;
+    --biru: #003B5C;
+    --putih: #FFFFFF;
+    --abu: #F1F1F1;
+}
+
 body {
     font-family: 'Segoe UI', sans-serif;
     margin: 0;
     padding: 0;
     min-height: 100vh;
-    background: linear-gradient(to bottom right, #ff0000, #ffffff, #0d1b2a); /* Merah → Putih → Biru gelap */
-    color: #fff;
+    background: linear-gradient(to right, var(--merah), var(--putih), var(--biru));
+    color: #000;
 }
 
 /* Header */
 header {
     text-align: center;
     padding: 30px 10px;
+    background-color: var(--biru);
+    color: var(--putih);
 }
 
 header img {
     width: 80px;
-    height: 80px;
+    height: auto;
     display: block;
     margin: 0 auto 10px;
 }
@@ -30,14 +39,13 @@ header img {
 header h1 {
     font-size: 32px;
     font-weight: bold;
-    text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
 }
 
 /* Container */
 .container {
     max-width: 800px;
     margin: 20px auto;
-    background: rgba(255,255,255,0.05);
+    background: var(--putih);
     padding: 20px;
     border-radius: 15px;
 }
@@ -50,18 +58,22 @@ table {
 }
 
 th, td {
-    border: 1px solid rgba(255,255,255,0.3);
+    border: 1px solid var(--abu);
     padding: 8px;
     text-align: center;
+}
+
+th {
+    background-color: var(--merah);
+    color: var(--putih);
 }
 
 input {
     width: 100px;
     text-align: right;
     border-radius: 5px;
-    border: none;
+    border: 1px solid #555;
     padding: 5px;
-    color: #000;
 }
 
 /* Button */
@@ -71,15 +83,14 @@ button {
     font-size: 16px;
     border-radius: 8px;
     border: none;
-    background: linear-gradient(to right, #ff0000, #0d1b2a); /* Merah → Biru gelap */
-    color: #fff;
+    background-color: var(--biru);
+    color: var(--putih);
     cursor: pointer;
     font-weight: bold;
-    box-shadow: 2px 2px 6px rgba(0,0,0,0.5);
 }
 
 button:hover {
-    background: linear-gradient(to right, #0d1b2a, #ff0000);
+    background-color: var(--merah);
 }
 
 /* Hasil */
@@ -87,6 +98,7 @@ button:hover {
     font-size: 18px;
     font-weight: bold;
     margin-top: 15px;
+    text-align: center;
 }
 </style>
 </head>
@@ -108,9 +120,9 @@ button:hover {
 </thead>
 <tbody>
 <tr><td>1. Gaji Asas</td><td><input type="number" id="c2_1" value="0"></td><td id="c3_1">0</td></tr>
-<tr><td>2. Elaun Malam (hari)</td><td>20</td><td id="c3_2">20</td></tr>
-<tr><td>3. Elaun Pagi (hari)</td><td>15</td><td id="c3_3">15</td></tr>
-<tr><td>4. Elaun Dobi</td><td>50</td><td id="c3_4">50</td></tr>
+<tr><td>2. Elaun Malam (hari)</td><td><input type="number" id="c2_2" value="0"></td><td id="c3_2">0</td></tr>
+<tr><td>3. Elaun Pagi (hari)</td><td><input type="number" id="c2_3" value="0"></td><td id="c3_3">0</td></tr>
+<tr><td>4. Elaun Dobi</td><td><input type="number" id="c2_4" value="0"></td><td id="c3_4">0</td></tr>
 <tr><td>5. Kerja OD (hari)</td><td><input type="number" id="c2_5" value="0"></td><td id="c3_5">0</td></tr>
 <tr><td>6. OT Normal (pagi)</td><td><input type="number" id="c2_6" value="0"></td><td id="c3_6">0</td></tr>
 <tr><td>7. OT Normal (malam)</td><td><input type="number" id="c2_7" value="0"></td><td id="c3_7">0</td></tr>
@@ -126,26 +138,24 @@ button:hover {
 
 <script>
 function kiraGaji(){
+    // Ambil input user
     const gajiAsas = parseFloat(document.getElementById('c2_1').value) || 0;
+    const hariMalam = parseFloat(document.getElementById('c2_2').value) || 0;
+    const hariPagi = parseFloat(document.getElementById('c2_3').value) || 0;
+    const elaunDobi = parseFloat(document.getElementById('c2_4').value) || 0;
     const c2_5 = parseFloat(document.getElementById('c2_5').value) || 0;
     const c2_6 = parseFloat(document.getElementById('c2_6').value) || 0;
     const c2_7 = parseFloat(document.getElementById('c2_7').value) || 0;
     const c2_8 = parseFloat(document.getElementById('c2_8').value) || 0;
     const c2_9 = parseFloat(document.getElementById('c2_9').value) || 0;
 
-    // Fixed values
-    const elaunMalam = 20;
-    const elaunPagi = 15;
-    const elaunDobi = 50;
-
-    // Base
-    const base = gajiAsas + elaunMalam + elaunPagi;
-
-    // Column 3 calculations
+    // Column3 calculations
     const c3_1 = gajiAsas;
-    const c3_2 = elaunMalam;
-    const c3_3 = elaunPagi;
+    const c3_2 = hariMalam * 20;
+    const c3_3 = hariPagi * 15;
     const c3_4 = elaunDobi;
+
+    const base = gajiAsas + c3_2 + c3_3;
 
     const c3_5 = c2_5 * (base / 26 / 8 * 1.5 * 11.5);
     const c3_6 = c2_6 * (base / 26 / 8 * 1.5);
