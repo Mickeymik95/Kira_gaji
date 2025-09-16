@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<title>Terai Pengiraan Gaji</title>
+</head>
+<body>
+<h2>Terai Pengiraan Gaji</h2>
+
+<label>Gaji Asas:</label>
+<input type="number" id="gajiAsas" value="2000"><br>
+
+<label>Elaun Malam (hari):</label>
+<input type="number" id="elaunMalam" value="2"><br>
+
+<label>Elaun Pagi (hari):</label>
+<input type="number" id="elaunPagi" value="3"><br>
+
+<label>Elaun Dobi:</label>
+<input type="number" id="elaunDobi" value="50"><br>
+
+<button onclick="kira()">Kira</button>
+
+<h3>Hasil Pengiraan:</h3>
+<ul id="hasil"></ul>
+
+<script>
+function kira() {
+    const c2_1 = parseFloat(document.getElementById('gajiAsas').value);
+    const c2_2 = parseFloat(document.getElementById('elaunMalam').value);
+    const c2_3 = parseFloat(document.getElementById('elaunPagi').value);
+    const c2_4 = parseFloat(document.getElementById('elaunDobi').value);
+
+    // Column 3 pengiraan
+    const c3_1 = c2_1;
+    const c3_2 = c2_2 * 20;
+    const c3_3 = c2_3 * 15;
+    const c3_4 = c2_4;
+
+    const base = c3_1 + c3_3 + c3_4;
+
+    const c2_5 = 1; // contoh Kerja OD (hari)
+    const c2_6 = 2; // OT Normal Pagi
+    const c2_7 = 1; // OT Normal Malam
+    const c2_8 = 1; // Normal PH
+    const c2_9 = 1; // OT PH
+
+    const c3_5 = c2_5 * (base / 26 / 8 * 1.5);
+    const c3_6 = c2_6 * (base / 26 / 8 * 1.5);
+    const c3_7 = c2_7 * (base / 26 / 8 * 1.5);
+    const c3_8 = c2_8 * (base / 26 / 8 * 2);
+    const c3_9 = c2_9 * (base / 26 / 8 * 3);
+
+    const c3_10 = c3_1 + c3_2 + c3_3 + c3_4 + c3_5 + c3_6 + c3_7 + c3_8 + c3_9;
+
+    const hasil = [
+        `Gaji Asas = ${c3_1.toFixed(2)}`,
+        `Elaun Malam = ${c3_2.toFixed(2)}`,
+        `Elaun Pagi = ${c3_3.toFixed(2)}`,
+        `Elaun Dobi = ${c3_4.toFixed(2)}`,
+        `Kerja OD = ${c3_5.toFixed(2)}`,
+        `OT Normal Pagi = ${c3_6.toFixed(2)}`,
+        `OT Normal Malam = ${c3_7.toFixed(2)}`,
+        `Normal PH = ${c3_8.toFixed(2)}`,
+        `OT PH = ${c3_9.toFixed(2)}`,
+        `Jumlah Gaji Kasar = ${c3_10.toFixed(2)}`
+    ];
+
+    const ul = document.getElementById('hasil');
+    ul.innerHTML = '';
+    hasil.forEach(h => {
+        const li = document.createElement('li');
+        li.textContent = h;
+        ul.appendChild(li);
+    });
+}
+</script>
+</body>
+</html>
