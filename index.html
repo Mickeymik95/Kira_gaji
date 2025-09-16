@@ -23,6 +23,7 @@ body {
     color: #000;
 }
 
+/* Header */
 header {
     text-align: center;
     padding: 30px 10px;
@@ -37,7 +38,7 @@ header img {
     height: 130px;
     display: block;
     margin: 0 auto 10px;
-    border-radius: 55px;
+    border-radius: 65px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.4);
 }
 
@@ -56,6 +57,7 @@ header h2 {
     text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
 
+/* Container */
 .container {
     max-width: 800px;
     margin: 20px auto;
@@ -65,17 +67,20 @@ header h2 {
     box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 }
 
+/* Table */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    table-layout: fixed;
 }
 
 th, td {
     border: 1px solid var(--emas);
     padding: 8px;
     text-align: center;
+    word-wrap: break-word;
 }
 
 th {
@@ -91,6 +96,7 @@ input {
     padding: 5px;
 }
 
+/* Button */
 button {
     margin-top: 15px;
     padding: 10px 20px;
@@ -107,11 +113,16 @@ button:hover {
     background-color: var(--merah);
 }
 
+/* Hasil */
 #jumlah {
     font-size: 18px;
     font-weight: bold;
     margin-top: 15px;
     text-align: center;
+}
+.highlight {
+    background-color: #FFF5B7; /* Kuning lembut */
+    font-weight: bold;
 }
 </style>
 </head>
@@ -192,9 +203,13 @@ function kiraGaji(){
     document.getElementById('jumlah').innerText = `Jumlah Gaji Kasar: RM ${c3_9.toFixed(2)}`;
 }
 
-// Download PDF hanya table penuh
+// Highlight row jumlah gaji
+const row9 = document.querySelector('#gajiTable tbody tr:last-child');
+row9.classList.add('highlight');
+
+// Download PDF hanya table
 document.getElementById('pdfBtn').addEventListener('click', () => {
-    const table = document.querySelector('.container table');
+    const table = document.getElementById('gajiTable');
     const inputs = table.querySelectorAll('input');
 
     // Tukar input ke text sementara
